@@ -20,6 +20,7 @@ jobs:
         curl -LJO https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar
         echo UA downloaded successfully
         export WS_NUGET_RUNPRESTEP=true
+        export WS_USERKEY=$USERKEY
         java -jar wss-unified-agent.jar -apikey $APIKEY -product GH_${{ github.event.repository.name }} -project ${{ github.ref }}
 
     - name: 'Upload Artifact'
