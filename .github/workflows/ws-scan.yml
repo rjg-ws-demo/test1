@@ -1,0 +1,22 @@
+name: Whitesource Prioritize dotnet-core
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.402
+    - name: WhiteSource Unified Agent Scan
+      env:
+        APIKEY: ${{secrets.APIKEY}}
+      run: |
+        curl -LJO https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar
+        echo UA downloaded successfully
+        export WS_NUGET_RUNPRESTEP=true
+        java -jar wss-unified-agent.jar -apikey $APIKEY -product GH_${{ github.event.repository.name }} -project ${{ github.ref }}
