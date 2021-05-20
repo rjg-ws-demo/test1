@@ -15,6 +15,7 @@ jobs:
     - name: WhiteSource Unified Agent Scan
       env:
         APIKEY: ${{secrets.APIKEY}}
+        USERKEY: ${{secrets.USERKEY}}
       run: |
         curl -LJO https://github.com/whitesource/unified-agent-distribution/releases/latest/download/wss-unified-agent.jar
         echo UA downloaded successfully
